@@ -1,0 +1,67 @@
+import java.util.Scanner;
+
+public class mergesortTEST
+{
+	public static void main(String[] args){
+		System.out.println("enter 8 numbers");
+		Scanner sc = new Scanner(System.in);
+		int[] a = new int [8];
+		for (int i=0; i<8; i++)
+		{
+			a[i] = sc.nextInt();
+		}
+		mergesort.n(a, 0, 7);
+		for(int i = 0; i<8; i++)
+		{
+			System.out.println(a[i]);
+		}
+	}
+}
+
+class merge
+{
+	public static void m(int[] A, int p, int q, int r)
+	{
+		int n1 = q-p+1;
+		int n2 = r-q;
+		int[] L = new int[n1+1];
+		int[] R = new int[n2+1];
+		for(int i=0; i<n1; i++)
+		{
+			L[i] = A[p+i];
+		}
+		for(int j=0; j<n2; j++)
+		{
+			R[j] = A[q+1+j];
+		}
+		L[n1] = (int)(1f/0f);  
+		R[n2] = (int)(1f/0f);  
+		int i = 0;
+		int j = 0;
+		for(int k=p; k<=r; k++)
+		{
+			if(L[i]<=R[j])
+			{
+				A[k] = L[i];
+				i+=1;
+			}
+			else{
+				A[k] = R[j]; 
+				j+=1;
+			}
+		}
+	}
+}
+
+class mergesort{
+	public static void n(int[] A, int p, int r)
+	{
+		if(p<r)
+		{
+			int q = (int) Math.floor((p+r)/2); 
+				mergesort.n(A, p, q);
+				mergesort.n(A, q+1, r);
+				merge.m(A, p, q, r);
+		}
+	}
+}

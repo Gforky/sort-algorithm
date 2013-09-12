@@ -1,0 +1,88 @@
+import java.util.Scanner;
+
+public class heapsortTEST
+{
+	public static void main(String[] args){
+		System.out.println("enter 8 numbers");
+		Scanner sc = new Scanner(System.in);
+		int[] a = new int [8];
+		for (int i=0; i<8; i++)
+		{
+			a[i] = sc.nextInt();
+		}
+		a = heapsort.k(a);
+		for(int i=0; i<8; i++)
+		{
+			System.out.println(a[i]);
+		}
+	}
+}
+
+class max_heapify
+{
+	public static void m(int[] A, int i)
+	{
+		int l = 2*i;
+		int r = 2*i+1;
+		int largest = 0;
+		/* you need to compare both the parent, the left child and the right child */
+		if(l<= A.length && A[l-1]>A[i-1])
+		{
+			largest = l;
+		}
+		else
+		{
+			largest = i;
+		}
+		if(r<=A.length && A[r-1]>A[largest-1])
+		{
+			largest = r;
+		}
+		if(largest != i)
+		{
+			int temp = A[i-1];
+			A[i-1] = A[largest-1];
+			A[largest-1] = temp;
+			max_heapify.m(A, largest);
+		}
+	}
+}
+
+class build_max_heap
+{
+	public static void n(int[] A)
+	{
+		for(int i=(int)Math.floor(A.length/2); i>=1; i--)
+		{
+			max_heapify.m(A, i);
+		}
+	}
+}
+
+class heapsort
+{
+	public static int[] k(int[] A)
+	{
+		build_max_heap.n(A);
+		int[] B = new int[8];
+		for(int i=A.length; i>=2; i--)
+		{
+			int temp = A[0];
+			A[0] = A[i-1];
+			A[i-1] = temp;
+			B[i-1] = A[i-1];  
+			int[] C = new int[i-1];
+			for(int x=0; x<i-1; x++)
+			{
+				C[x] = A[x];
+			}
+			max_heapify.m(C,1);
+			for(int y=0; y<i-1; y++)
+			{
+				A[y] = C[y];
+			}
+		}
+		B[0] = A[0];
+		return B;
+ 	}
+}
